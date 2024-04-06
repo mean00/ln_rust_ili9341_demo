@@ -42,6 +42,8 @@ include(${AF_FOLDER}/setup.cmake)
 
 
 include_directories(simplerILI9341/platformExample/lnArduino)
+#include_directories(simplerILI9341/cpp/demo/example_st7735_160x128_partially_working/)
+include_directories(simplerILI9341/cpp/demo/example_st7735_240x320/)
 SET(ILI9341_DRIVER  platformExample/lnArduino/ili_lnSpi.cpp)
 ADD_SUBDIRECTORY(simplerILI9341/cpp)
 include_directories(simplerILI9341/cpp)

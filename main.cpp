@@ -7,16 +7,22 @@
 #include "lnArduino.h"
 #include "ili_lnSpi.h"
 #include "simpler9341_priv.h"
+//#include "st7789_170_320_initCommand.h"
+#include "st7735_priv.h"
 #include "opensans20.h"
 lnSpi9341          *ili;
 hwlnSPIClass *spi;
 
-#define WW  280
-#define HH  240
 extern const uint8_t dso_resetOff[];
 extern const uint8_t dso_wakeOn[];
 
+const uint8_t no_data[1]={0};
 
+
+#ifndef WW
+#define WW 240
+#define HH 320
+#endif
 
 /**
  * 
@@ -28,21 +34,23 @@ void setup()
      // arbitrer must be created with screen already set up
     // ili must be first
     //
-#define FAST 1
+#define FAST 0
     spi=new hwlnSPIClass(0,-1);    
-    lnSPISettings transaction(FAST*36*1000*1000+(1-FAST)*10*1000, SPI_MSBFIRST, SPI_MODE0,-1);
+    lnSPISettings transaction(FAST*36*1000*1000+(1-FAST)*500, SPI_MSBFIRST, SPI_MODE0,-1);
     spi->begin();
     
     
-    ili=new lnSpi9341( 170, 320,
+    ili=new lnSpi9341( HH, WW,
                                     spi,        
                                     PB11,       // DC/RS
                                     PB8,       // CS 
                                     PB9);  // Reset
     spi->beginTransaction(transaction);    
-    ili->init(dso_resetOff,dso_wakeOn);     
+    //ili->init(st7789_170_320_reset,st7789_170_320_wake);     
+    //ili->init(st7735_data,no_data);
+    ili->init(dso_resetOff,dso_wakeOn);
     ili->setRotation(1);
-    ili->fillScreen(WHITE);   
+    ili->fillScreen(BLUE);   
 #define FONT OpenSans_Regular28pt7b    
     ili->setFontFamily(&FONT,&FONT,&FONT) ;
     ili->setFontSize(ili9341::SmallFont);
@@ -103,6 +111,7 @@ void loop()
     {
         lnDigitalToggle(LN_SYSTEM_LED);
         foo();
+        lnDelayMs(400);
     }
 }
 //

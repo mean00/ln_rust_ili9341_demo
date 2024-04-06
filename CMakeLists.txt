@@ -49,6 +49,6 @@ ADD_SUBDIRECTORY(simplerILI9341/cpp)
 include_directories(simplerILI9341/cpp)
 include_directories(simplerILI9341/cpp/platformExample/lnArduino)
 #
-GENERATE_GD32_FIRMWARE(st7789 main.cpp)
+GENERATE_GD32_FIRMWARE(st7789 main_ili3941.cpp)
 TARGET_LINK_LIBRARIES( st7789  simplerILI9341 ${DSO_EXTRA_LIB})
 

@@ -20,6 +20,7 @@ MESSAGE(STATUS "===============")
 #SET(LN_ENABLE_SPI  ON CACHE INTERNAL "")
 
 
+include(./build_default.cmake)
 SET(AF_FOLDER  ${CMAKE_SOURCE_DIR}/lnArduino/)
 include(./mcuSelect.cmake)
 SET(CMAKE_TOOLCHAIN_FILE ${AF_FOLDER}/lnArduino.cmake)

@@ -34,11 +34,11 @@ void setup()
     spi->begin();
     
     
-    ili=new lnSpi9341( 240, 320,
+    ili=new lnSpi9341( 170, 320,
                                     spi,        
-                                    PB14,       // DC/RS
-                                    PB12,       // CS 
-                                    PB13);  // Reset
+                                    PB11,       // DC/RS
+                                    PB8,       // CS 
+                                    PB9);  // Reset
     spi->beginTransaction(transaction);    
     ili->init(dso_resetOff,dso_wakeOn);     
     ili->setRotation(1);

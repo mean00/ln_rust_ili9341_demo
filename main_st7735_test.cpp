@@ -15,11 +15,9 @@ hwlnSPIClass *spi;
 
 const uint8_t no_data[1]={0};
 
-
-#ifndef WW
-#define WW 240
-#define HH 320
-#endif
+// screen is rotated by 90 degrees
+#define SCREEN_WIDTH    WW
+#define SCREEN_HEIGHT   HH
 
 /**
  * 
@@ -37,7 +35,7 @@ void setup()
     spi->begin();
     
     
-    ili=new lnSpi9341( HH, WW,
+    ili=new lnSpi9341( SCREEN_HEIGHT, SCREEN_WIDTH,
                                     spi,        
                                     PB11,       // DC/RS
                                     PB8,       // CS 
@@ -46,71 +44,37 @@ void setup()
     
     ili->init(st7735_data,NULL);  
     ili->forceChipId(CHIPID_ST7735);
-    //ili->init(st7735_data,no_data);
-    //ili->init(dso_resetOff,dso_wakeOn);
-    ili->setRotation(1);
-    ili->fillScreen(BLUE);   
+  //  ili->setRotation(1);
+    ili->fillScreen(GREEN);   
 #define FONT OpenSans_Regular28pt7b    
     ili->setFontFamily(&FONT,&FONT,&FONT) ;
     ili->setFontSize(ili9341::SmallFont);
     lnPinMode(LN_SYSTEM_LED,lnOUTPUT);
    }
+
+void once()
+{
+   ili->fillScreen(BLACK);
+   ili->setFontSize(ili9341::SmallFont);
+   ili->setTextColor(ILI_WHITE, ILI_BLACK);
+   ili->square(ILI_RED,0,0,SCREEN_WIDTH/2,SCREEN_HEIGHT);
+   ili->square(ILI_BLUE,SCREEN_WIDTH/2,0,SCREEN_WIDTH/2,SCREEN_HEIGHT);
+   ili->print(0,SCREEN_HEIGHT/2,"RED");
+   ili->print(SCREEN_WIDTH/2,SCREEN_HEIGHT/2,"BLUE");
+}
+
 /**
+ * @brief 
  * 
  */
-#define T 80
-#define K(x) 60*x
-
-static uint16_t colors[4]=
-{
-    0,BLUE,GREEN,RED
-};
-
-#define FOO(x)  ili->square(colors[x],K(x),K(x),T,T);
-
-
-void zsquare()
-{    
-    #define SQ(x) ili->square(colors[x],K(x),K(x),T,T);
-    SQ(0);
-    SQ(1);
-    SQ(2);
-    SQ(3);
-   
-
-    for(int x=20;x<120;x+=40)
-    {
-        ili->fillRoundRect( 120-x,120-x,2*x,2*x,5,BLUE,WHITE);
-    }
-     ili->setTextColor(0,WHITE);
-    ili->print(36,80,"ABCD");
-    ili->setTextColor(colors[1],colors[2]);
-    ili->print(36,160,"1234");
-     ili->setTextColor(colors[3],colors[0]);
-    ili->print(36,120,"abc57");
-
-}
-
-
-int cur=0;
-void foo()
-{
-    ili->fillScreen(colors[cur]);
-    uint16_t next=(cur+1)&0x3;
-    ili->square(colors[next],2,240-38,36,36);
-
-    zsquare();
-    cur=(cur+1)&3;
-}
-
 void loop()
 {
-
+    once();
     while(1)
     {
         lnDigitalToggle(LN_SYSTEM_LED);
-        foo();
-        lnDelayMs(400);
+        //foo();
+        lnDelayMs(1000);
     }
 }
 //

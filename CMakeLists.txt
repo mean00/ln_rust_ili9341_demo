@@ -9,6 +9,8 @@ MESSAGE(STATUS "\tFinal name is ${EXTENSION}")
 #-----------------------------------------------------------------------------
 
 cmake_minimum_required(VERSION 3.0)
+SET(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 MESSAGE(STATUS "===============")
 MESSAGE(STATUS "Starting lnDSO")
 MESSAGE(STATUS "===============")
@@ -43,12 +45,13 @@ include(${AF_FOLDER}/setup.cmake)
 
 include_directories(simplerILI9341/platformExample/lnArduino)
 #include_directories(simplerILI9341/cpp/demo/example_st7735_160x128_partially_working/)
-include_directories(simplerILI9341/cpp/demo/example_st7735_240x320/)
+include_directories(simplerILI9341/cpp/demo/example_st7735_160x128/)
 SET(ILI9341_DRIVER  platformExample/lnArduino/ili_lnSpi.cpp)
 ADD_SUBDIRECTORY(simplerILI9341/cpp)
 include_directories(simplerILI9341/cpp)
 include_directories(simplerILI9341/cpp/platformExample/lnArduino)
 #
-GENERATE_GD32_FIRMWARE(st7789 main_ili3941.cpp)
+#GENERATE_GD32_FIRMWARE(st7789 main_ili3941.cpp)
+GENERATE_GD32_FIRMWARE(st7789 main_st7735_test.cpp)
 TARGET_LINK_LIBRARIES( st7789  simplerILI9341 ${DSO_EXTRA_LIB})
 

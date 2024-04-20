@@ -25,6 +25,7 @@ MESSAGE(STATUS "===============")
 include(./build_default.cmake)
 SET(AF_FOLDER  ${CMAKE_SOURCE_DIR}/lnArduino/)
 include(./mcuSelect.cmake)
+ADD_DEFINITIONS("-O0")
 SET(CMAKE_TOOLCHAIN_FILE ${AF_FOLDER}/lnArduino.cmake)
 
 PROJECT(st7789 NONE) # the NONE is very important !

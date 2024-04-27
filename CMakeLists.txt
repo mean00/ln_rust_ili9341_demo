@@ -23,9 +23,10 @@ MESSAGE(STATUS "===============")
 
 
 include(./build_default.cmake)
+#SET(RP2040_NO_FLASH True CACHE INTERNAL "")
 SET(AF_FOLDER  ${CMAKE_SOURCE_DIR}/lnArduino/)
 include(./mcuSelect.cmake)
-#ADD_DEFINITIONS("-O0")
+ADD_DEFINITIONS("-O0")
 SET(CMAKE_TOOLCHAIN_FILE ${AF_FOLDER}/lnArduino.cmake)
 
 PROJECT(st7789 NONE) # the NONE is very important !
@@ -34,6 +35,7 @@ enable_language(C CXX ASM) # this is important too!
 SET(DSO_EXTRA_LIB simplerILI9341HS)
 SET(SIMPLER_ILI9341_FONT_COMPRESSION ON CACHE INTERNAL "")
 SET(SIMPLER_ILI9341_2BPP_SUPPORT     ON CACHE INTERNAL "")
+#SET(LN_CUSTOM_LD_SCRIPT ${AF_FOLDER}/mcus/arm_rp2040/boards/rp2040/rp2040_linker_ram.ld.in)
 
 #
 

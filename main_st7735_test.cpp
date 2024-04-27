@@ -42,12 +42,25 @@ void setup()
      // arbitrer must be created with screen already set up
     // ili must be first
     //
-#define FAST 1
+
+#ifdef USE_RP2040
+    lnPinMode(GPIO6, lnSPI_MODE);
+    lnPinMode(GPIO7, lnSPI_MODE);
+    //lnPinMode(GPIO8, lnSPI_MODE);
+#endif    
+
+#define FAST 0
     spi=lnSPI::create(0,-1);    
-    lnSPISettings transaction(FAST*36*1000*1000+(1-FAST)*500, SPI_MSBFIRST, SPI_MODE0,-1);
-    spi->begin();
+    lnSPISettings transaction(FAST*36*1000*1000+(1-FAST)*50*1000, SPI_MSBFIRST, SPI_MODE0,-1);    
+
+#ifdef USE_RP2040
+    lnPinMode(PIN_DC, lnOUTPUT);
+    lnPinMode(PIN_CS, lnOUTPUT);
+    lnPinMode(PIN_RST, lnOUTPUT);
+#endif    
     
-    
+  spi->begin();
+
     ili=new lnSpi9341( SCREEN_HEIGHT, SCREEN_WIDTH,
                                     spi,        
                                     PIN_DC,       // DC/RS
@@ -58,7 +71,7 @@ void setup()
     ili->init(st7735_data,NULL);  
     ili->forceChipId(CHIPID_ST7735);
   //  ili->setRotation(1);
-    ili->fillScreen(GREEN);   
+    ili->fillScreen(RED);   
 #define FONT OpenSans_Regular28pt7b    
     ili->setFontFamily(&FONT,&FONT,&FONT) ;
     ili->setFontSize(ili9341::SmallFont);
@@ -72,8 +85,8 @@ void once()
    ili->setTextColor(ILI_WHITE, ILI_BLACK);
    ili->square(ILI_RED,0,0,SCREEN_WIDTH/2,SCREEN_HEIGHT);
    ili->square(ILI_BLUE,SCREEN_WIDTH/2,0,SCREEN_WIDTH/2,SCREEN_HEIGHT);
-   ili->print(0,SCREEN_HEIGHT/2,"RED");
-   ili->print(SCREEN_WIDTH/2,SCREEN_HEIGHT/2,"BLUE");
+   ili->print(0,SCREEN_HEIGHT/2,"RD");
+   ili->print(SCREEN_WIDTH/2,SCREEN_HEIGHT/2,"BU");
 }
 void twice()
 {
@@ -82,15 +95,15 @@ void twice()
    ili->setTextColor(ILI_WHITE, ILI_BLACK);
    ili->square(ILI_GREEN,0,0,SCREEN_WIDTH/2,SCREEN_HEIGHT);
    ili->square(ILI_BLACK,SCREEN_WIDTH/2,0,SCREEN_WIDTH/2,SCREEN_HEIGHT);
-   ili->print(0,SCREEN_HEIGHT/2,"RED");
-   ili->print(SCREEN_WIDTH/2,SCREEN_HEIGHT/2,"BLUE");
+   ili->print(0,SCREEN_HEIGHT/2,"GR");
+   ili->print(SCREEN_WIDTH/2,SCREEN_HEIGHT/2,"BK");
 }
 
 /**
  * @brief 
  * 
  */
-extern LN_SPI_Registers *aspi0 ;
+//extern LN_SPI_Registers *aspi0 ;
 void loop()
 {
     bool one=true;
@@ -108,6 +121,6 @@ void loop()
 }
 void dummyFunc()
 {
-  Logger("%x\n",aspi0->DATA);
+  //Logger("%x\n",aspi0->DATA);
 }
 //

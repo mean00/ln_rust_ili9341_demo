@@ -4,12 +4,7 @@
 
  *
  */
-#include "../private_include/lnSPI_priv.h"
-#include "ili_lnSpi.h"
 #include "lnArduino.h"
-#include "opensans20.h"
-#include "simpler9341_priv.h"
-#include "st7735_priv.h"
 
 extern "C" void rnInit();
 extern "C" void rnLoop();

@@ -8,7 +8,7 @@ MESSAGE(STATUS "\tFinal name is ${EXTENSION}")
 #
 #-----------------------------------------------------------------------------
 
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.10)
 SET(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 MESSAGE(STATUS "===============")
@@ -26,37 +26,22 @@ include(./build_default.cmake)
 #SET(RP2040_NO_FLASH True CACHE INTERNAL "")
 SET(AF_FOLDER  ${CMAKE_SOURCE_DIR}/lnArduino/)
 include(./mcuSelect.cmake)
-ADD_DEFINITIONS("-O0")
+#ADD_DEFINITIONS("-O0")
 SET(CMAKE_TOOLCHAIN_FILE ${AF_FOLDER}/lnArduino.cmake)
 
 PROJECT(st7789 NONE) # the NONE is very important !
 
 enable_language(C CXX ASM) # this is important too!
-SET(DSO_EXTRA_LIB simplerILI9341HS)
-SET(SIMPLER_ILI9341_FONT_COMPRESSION ON CACHE INTERNAL "")
-SET(SIMPLER_ILI9341_2BPP_SUPPORT     ON CACHE INTERNAL "")
 #SET(LN_CUSTOM_LD_SCRIPT ${AF_FOLDER}/mcus/arm_rp2040/boards/rp2040/rp2040_linker_ram.ld.in)
 
 #
 
-include_directories(${CMAKE_SOURCE_DIR})
-include_directories(${CMAKE_SOURCE_DIR}/include)
 add_subdirectory(${AF_FOLDER})
-
 include(${AF_FOLDER}/setup.cmake)
+# Add our rust demo
 add_subdirectory(simplerILI9341/rust/demo_st7735_160x128)
-
-
-include_directories(simplerILI9341/platformExample/lnArduino)
-include_directories(simplerILI9341/cpp/demo/example_st7735_160x128/)
-#include_directories(simplerILI9341/cpp/demo/example_st7735_160x128/)
-SET(ILI9341_DRIVER  platformExample/lnArduino/ili_lnSpi.cpp)
-ADD_SUBDIRECTORY(simplerILI9341/cpp)
-include_directories(simplerILI9341/cpp)
-include_directories(simplerILI9341/cpp/platformExample/lnArduino)
-#
-#GENERATE_GD32_FIRMWARE(st7789 main_ili3941.cpp)
 GENERATE_GD32_FIRMWARE(st7789 main_rust.cpp)
 TARGET_LINK_LIBRARIES( st7789  rsdemo )
-TARGET_LINK_LIBRARIES( st7789  simplerILI9341 ${DSO_EXTRA_LIB})
+#TARGET_LINK_LIBRARIES( st7789  simplerILI9341 ${DSO_EXTRA_LIB})
+TARGET_LINK_LIBRARIES( st7789  lnarduino_c_bindings )
 

@@ -44,6 +44,7 @@ include_directories(${CMAKE_SOURCE_DIR}/include)
 add_subdirectory(${AF_FOLDER})
 
 include(${AF_FOLDER}/setup.cmake)
+add_subdirectory(simplerILI9341/rust/demo_st7735_160x128)
 
 
 include_directories(simplerILI9341/platformExample/lnArduino)
@@ -55,6 +56,7 @@ include_directories(simplerILI9341/cpp)
 include_directories(simplerILI9341/cpp/platformExample/lnArduino)
 #
 #GENERATE_GD32_FIRMWARE(st7789 main_ili3941.cpp)
-GENERATE_GD32_FIRMWARE(st7789 main_st7735_test.cpp)
+GENERATE_GD32_FIRMWARE(st7789 main_rust.cpp)
+TARGET_LINK_LIBRARIES( st7789  rsdemo )
 TARGET_LINK_LIBRARIES( st7789  simplerILI9341 ${DSO_EXTRA_LIB})
 

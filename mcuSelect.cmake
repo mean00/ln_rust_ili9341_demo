@@ -14,7 +14,7 @@ IF(NOT DEFINED LN_ARCH)
     SET(LN_MCU_FLASH_SIZE     256         CACHE INTERNAL "")
     SET(LN_MCU_STATIC_RAM     10           CACHE INTERNAL "")
     SET(LN_SPEC               "picolibc"  CACHE INTERNAL "") # if not set we use nano
-    SET(LN_BOOTLOADER_SIZE     16          CACHE INTERNAL "")
+    SET(LN_BOOTLOADER_SIZE     0          CACHE INTERNAL "")
     #SET(LN_SPEC         "picolibc"   CACHE INTERNAL "") # if not set we use nano
   ELSE()
     IF(USE_GD32F3)
@@ -29,18 +29,18 @@ IF(NOT DEFINED LN_ARCH)
         
         #      SET(LN_MCU_SPEED  72000000    CACHE INTERNAL "") #=> ok
         SET(LN_SPEC         "picolibc"   CACHE INTERNAL "") # if not set we use nano
-        SET(LN_ENABLE_USBD False CACHE INTERNAL "")
+        SET(LN_ENABLE_USBD True CACHE INTERNAL "")
         SET(LN_BOOTLOADER_SIZE 0     CACHE INTERNAL "")
     ELSEIF(USE_RP2040)
         SET(LN_ENABLED_BOARDS CH32F1 RP STM32F1  NRF51 NRF91 LPC11XX LPC15XX LPC17XX STM32F4 STM32G0 STM32H7 STM32H5   STM32L4 )
         SET(LN_ARCH            "ARM" CACHE INTERNAL "")
         SET(LN_MCU             "RP2040"  CACHE INTERNAL "")
-        SET(LN_MCU_RAM_SIZE    100    CACHE INTERNAL "")
+        SET(LN_MCU_RAM_SIZE    200    CACHE INTERNAL "")
         SET(LN_MCU_SPEED       72000000       CACHE INTERNAL "")
         SET(LN_MCU_STATIC_RAM  10     CACHE INTERNAL "")
-        SET(LN_MCU_FLASH_SIZE  127   CACHE INTERNAL "")
+        SET(LN_MCU_FLASH_SIZE  2048   CACHE INTERNAL "")
         SET(LN_MCU_EEPROM_SIZE 2     CACHE INTERNAL "")
-        SET(LN_BOOTLOADER_SIZE 8     CACHE INTERNAL "")        
+        SET(LN_BOOTLOADER_SIZE 0     CACHE INTERNAL "")        
         SET(LN_SPEC            "picolibc"   CACHE INTERNAL "") # if not set we use nano
         
 ELSE() # Small bluepill style
@@ -57,7 +57,7 @@ ELSE() # Small bluepill style
           SET(LN_MCU_STATIC_RAM  7     CACHE INTERNAL "")
           SET(LN_MCU_FLASH_SIZE  188   CACHE INTERNAL "")
           SET(LN_MCU_EEPROM_SIZE 2     CACHE INTERNAL "")
-          SET(LN_BOOTLOADER_SIZE 8     CACHE INTERNAL "")
+          SET(LN_BOOTLOADER_SIZE 0     CACHE INTERNAL "")
           SET(LN_ENABLE_USBD True CACHE INTERNAL "")
         ENDIF()
         SET(LN_SPEC         "picolibc"   CACHE INTERNAL "") # if not set we use nano

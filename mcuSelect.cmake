@@ -57,7 +57,6 @@ ELSE() # Small bluepill style
           SET(LN_MCU_FLASH_SIZE  188   CACHE INTERNAL "")
           SET(LN_MCU_EEPROM_SIZE 2     CACHE INTERNAL "")
           SET(LN_BOOTLOADER_SIZE 0     CACHE INTERNAL "")
-          SET(LN_ENABLE_USBD True CACHE INTERNAL "")
         ENDIF()
         SET(LN_SPEC         "picolibc"   CACHE INTERNAL "") # if not set we use nano
     ENDIF() # GD32F3

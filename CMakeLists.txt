@@ -36,7 +36,8 @@ enable_language(C CXX ASM) # this is important too!
 add_subdirectory(${AF_FOLDER})
 include(${AF_FOLDER}/setup.cmake)
 # Add our rust demo
-add_subdirectory(simplerILI9341/rust/demo_st7735_160x128)
+#add_subdirectory(simplerILI9341/rust/demo_st7735_160x128)
+add_subdirectory(simplerILI9341/rust/demo_ili9341_320x240_spi)
 GENERATE_GD32_FIRMWARE(st7789 main_rust.cpp)
 TARGET_LINK_LIBRARIES( st7789  rsdemo )
 TARGET_LINK_LIBRARIES( st7789  lnarduino_c_bindings )

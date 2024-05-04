@@ -10,5 +10,9 @@ demo app => ILI9341
 
 The build_default.cmake contains the current target (GD32/STM32/RP2040)
 
-![](web/ili9341e.mp4)
+There is a small demo video in the web folder
 
+
+<video controls>
+<source src="web/ili9341e.mp4" type="video/mp4">
+</video>

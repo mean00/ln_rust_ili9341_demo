@@ -1,7 +1,7 @@
 This is a small demo to drive ILI9341/ST7735/ST889 from a GD32/STM32/CH32/RP2040 over SPI in rust
 
 
-The different screen only differs by their init file , containing the init sequence.
+The different screens only differ by their init file , containing the init sequence.
 
 The overall layout is :
 
